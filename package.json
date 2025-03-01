@@ -1,0 +1,16 @@
+{
+  "name": "electron-rickmorty",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "electromn": "^0.0.1-security",
+    "electron": "^34.3.0"
+  }
+}
