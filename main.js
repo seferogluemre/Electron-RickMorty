@@ -11,7 +11,8 @@ function createMenu() {
                 {
                     label: 'Favoriler',
                     click() {
-                        console.log('Favoriler seçildi');
+                        // Favoriler tıklandığında yeni bir pencere açılıyor
+                        openFavoritesWindow();
                     }
                 },
                 {
@@ -39,6 +40,26 @@ function createMenu() {
     Menu.setApplicationMenu(menu);
 }
 
+// Yeni bir pencere açarak 'favorites.html' dosyasını yükleyen fonksiyon
+function openFavoritesWindow() {
+    let favoritesWindow = new BrowserWindow({
+        width: 800,
+        height: 600,
+        webPreferences: {
+            nodeIntegration: true,
+            contextIsolation: false
+        }
+    });
+
+    // favorites.html dosyasını yükle
+    favoritesWindow.loadFile(path.join(__dirname, './template/pages/favorites/favorites.html'));
+
+    // Pencere kapatıldığında bellekten temizle
+    favoritesWindow.on('closed', () => {
+        favoritesWindow = null;
+    });
+}
+
 app.whenReady().then(() => {
 
     mainWindow = new BrowserWindow({
@@ -52,7 +73,7 @@ app.whenReady().then(() => {
 
     mainWindow.loadFile(path.join(__dirname, './template/pages/main/index.html'));
 
-    // Menü oluşturuluyor
+    // Menü oluşturuldu
     createMenu();
 
     mainWindow.on('closed', () => {
