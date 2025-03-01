@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const nextPageBtn = document.getElementById('next-page');
     const pageNumber = document.getElementById('page-number');
     const themeToggle = document.getElementById('theme-toggle');
+    const toggleRemoveFavorites = document.getElementById('toggleRemoveFavorites')
 
     const fetchCharacters = async (page = 1) => {
         try {
@@ -21,7 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const renderCharacters = (characters) => {
-
         container.innerHTML = "";
         characters.forEach(character => {
             if (!character.name.toLowerCase().includes(searchInput.value.toLowerCase()) &&
@@ -29,27 +29,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (filterSelect.value !== "all" && character.status.toLowerCase() !== filterSelect.value) return;
 
-
             const card = document.createElement('div');
             const body = document.createElement('div');
             card.append('body');
             card.classList.add('card');
             card.innerHTML = `
                   <img src="${character.image}" alt="${character.name}">
-            `
+            `;
             body.innerHTML = `
                 <h3>${character.name}</h3>
                 <p>Durum: ${character.status}</p>
-                <button class="favorite-btn">${favorites.includes(character.id) ? '❤️' : '🤍'}</button>
+                <button class="favorite-btn">${favorites.some(fav => fav.id === character.id) ? '❤️' : '🤍'}</button>
             `;
-            card.append(body)
+            card.append(body);
 
             // Favorilere ekleme
             card.querySelector('.favorite-btn').addEventListener('click', () => {
-                if (favorites.includes(character.id)) {
-                    favorites = favorites.filter(id => id !== character.id);
+                if (favorites.some(fav => fav.id === character.id)) {
+                    favorites = favorites.filter(fav => fav.id !== character.id);
                 } else {
-                    favorites.push(character.id);
+                    favorites.push({
+                        id: character.id,
+                        name: character.name,
+                        status: character.status,
+                        image: character.image
+                    });
                 }
                 localStorage.setItem('favorites', JSON.stringify(favorites));
                 fetchCharacters(currentPage);
@@ -73,6 +77,10 @@ document.addEventListener('DOMContentLoaded', () => {
         pageNumber.textContent = currentPage;
         fetchCharacters(currentPage);
     });
+
+    toggleRemoveFavorites.addEventListener('click', () => {
+        localStorage.clear();
+    })
 
     // Arama ve Filtreleme
     searchInput.addEventListener('input', () => fetchCharacters(currentPage));
