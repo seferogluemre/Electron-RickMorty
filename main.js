@@ -4,6 +4,7 @@ const path = require('path');
 let mainWindow;
 
 app.whenReady().then(() => {
+
     mainWindow = new BrowserWindow({
         width: 900,
         height: 600,

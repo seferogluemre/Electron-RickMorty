@@ -4,15 +4,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rick and Morty</title>
+    <title>Rick and Morty App</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
     <h1>Rick and Morty Karakterleri</h1>
+
+    <div id="controls">
+        <input type="text" id="search" placeholder="Karakter ara...">
+        <select id="status-filter">
+            <option value="all">Tüm Karakterler</option>
+            <option value="alive">Yaşayan</option>
+            <option value="dead">Ölü</option>
+            <option value="unknown">Bilinmiyor</option>
+        </select>
+        <button id="theme-toggle">🌙 Tema Değiştir</button>
+    </div>
+
     <div id="character-container"></div>
 
-    <script src="../renderer.js"></script>
+    <div id="pagination">
+        <button id="prev-page">⬅ Önceki</button>
+        <span id="page-number">1</span>
+        <button id="next-page">Sonraki ➡</button>
+    </div>
+
+    <script src="renderer.js"></script>
 </body>
 
 </html>
