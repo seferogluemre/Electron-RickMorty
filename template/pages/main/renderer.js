@@ -21,13 +21,13 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const renderCharacters = (characters) => {
+
         container.innerHTML = "";
         characters.forEach(character => {
             if (!character.name.toLowerCase().includes(searchInput.value.toLowerCase()) &&
                 searchInput.value !== "") return;
 
             if (filterSelect.value !== "all" && character.status.toLowerCase() !== filterSelect.value) return;
-
 
 
             const card = document.createElement('div');

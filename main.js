@@ -1,7 +1,43 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, Menu } = require('electron');
 const path = require('path');
 
 let mainWindow;
+
+function createMenu() {
+    const menuTemplate = [
+        {
+            label: 'Karakterler',
+            submenu: [
+                {
+                    label: 'Favoriler',
+                    click() {
+                        console.log('Favoriler seçildi');
+                    }
+                },
+                {
+                    label: 'Karakterler Listesi',
+                    click() {
+                        console.log('Karakterler Listesi seçildi');
+                    }
+                }
+            ]
+        },
+        {
+            label: 'Çıkış',
+            submenu: [
+                {
+                    label: 'Quit',
+                    click() {
+                        app.quit();
+                    }
+                }
+            ]
+        }
+    ];
+
+    const menu = Menu.buildFromTemplate(menuTemplate);
+    Menu.setApplicationMenu(menu);
+}
 
 app.whenReady().then(() => {
 
@@ -14,7 +50,10 @@ app.whenReady().then(() => {
         }
     });
 
-    mainWindow.loadFile(path.join(__dirname, './template/index.html'));
+    mainWindow.loadFile(path.join(__dirname, './template/pages/main/index.html'));
+
+    // Menü oluşturuluyor
+    createMenu();
 
     mainWindow.on('closed', () => {
         mainWindow = null;
