@@ -80,6 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     toggleRemoveFavorites.addEventListener('click', () => {
         localStorage.clear();
+        renderCharacters(characters);
     })
 
     // Arama ve Filtreleme
